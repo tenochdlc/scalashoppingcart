@@ -10,7 +10,7 @@ object ShoppingCart extends CheckoutService {
       Orange(),
       Apple()
     )
-    val itemsToPrint = scannedItems.foldLeft("")( (r,c) => s"$r ${c.toString}")
+    val itemsToPrint = scannedItems.foldLeft("")( (r,c) => s"$r ${c.name}")
     val total = calculatePrice(scannedItems)
     println(s"[$itemsToPrint ] => $total")
   }
