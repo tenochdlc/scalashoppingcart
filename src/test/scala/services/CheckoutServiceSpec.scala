@@ -1,5 +1,6 @@
 package services
 
+import org.scalatest.{FlatSpec, Matchers}
 
 class CheckoutServiceSpec  extends FlatSpec with Matchers {
   val serviceToTest = new CheckoutService {}
