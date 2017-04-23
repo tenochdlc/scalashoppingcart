@@ -66,7 +66,7 @@ class PromotionsServiceSpec extends FlatSpec with Matchers {
       )
     ).equals(orange.price * 3) shouldBe true
   }
-  
+
   it should "return apples' and oranges' discounts combined" in {
     val apple = Apple()
     val orange = Orange()

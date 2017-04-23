@@ -1,8 +1,8 @@
-
 import model.{Apple, Orange}
-import services.CheckoutService
+import services.{CheckoutService, PromotionsService}
 
-object ShoppingCart extends CheckoutService {
+
+object ShoppingCart extends CheckoutService with PromotionsService {
   def main(args: Array[String]): Unit = {
     val scannedItems = List(
       Apple(),
@@ -11,7 +11,9 @@ object ShoppingCart extends CheckoutService {
       Apple()
     )
     val itemsToPrint = scannedItems.foldLeft("")( (r,c) => s"$r ${c.name}")
-    val total = calculatePrice(scannedItems)
+    val price = calculatePrice(scannedItems)
+    val discounts = calculateDiscounts(scannedItems)
+    val total = price - discounts
     println(s"[$itemsToPrint ] => $total")
   }
 }
