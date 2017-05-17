@@ -1,6 +1,6 @@
 package services
 
-import model.{Apple, Orange}
+import model.{Apple, Banana, Orange}
 import org.scalatest.{FlatSpec, Matchers}
 
 class PromotionsServiceSpec extends FlatSpec with Matchers {
@@ -77,5 +77,38 @@ class PromotionsServiceSpec extends FlatSpec with Matchers {
         orange,Orange(),Orange()
       )
     ).equals(apple.price + orange.price) shouldBe true
+  }
+
+  it should "discount the cheapest product first when bananas and apples are in the cart" in {
+    val apple = Apple()
+    val banana = Banana()
+
+    serviceToTest.calculateDiscounts(
+      List(
+        banana,
+        apple
+      )
+    ).equals(banana.price) shouldBe true
+
+    serviceToTest.calculateDiscounts(
+      List(
+        banana, Banana(),
+        apple, Apple()
+      )
+    ).equals(banana.price * 2) shouldBe true
+
+    serviceToTest.calculateDiscounts(
+      List(
+        banana, Banana(),
+        apple, Apple(), Apple(), Apple()
+      )
+    ).equals( (banana.price * 2) + apple.price ) shouldBe true
+
+    serviceToTest.calculateDiscounts(
+      List(
+        banana, Banana(), Banana(), Banana(),
+        apple, Apple()
+      )
+    ).equals(banana.price * 3 ) shouldBe true
   }
 }
